@@ -8,7 +8,7 @@
         }
 
         if ( ! template_cache.tmpl_cache[tmpl_name] ) {
-            var tmpl_dir = '/js/views';
+            var tmpl_dir = 'js/views';
             var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html?4';
 
             var tmpl_string;
@@ -221,7 +221,7 @@
         bootstrap: function(init, year){
             var self = this;
             this.spin('#main-chart', 'large');
-            $.when($.get('/data/macoupin-budget_1997-2014.csv')).then(
+            $.when($.get('data/macoupin-budget_1997-2014.csv')).then(
                 function(data){
                     var json = $.csv.toObjects(data);
                     var loadit = []
