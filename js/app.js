@@ -84,6 +84,8 @@
             var max_app = _.max(this.models, function(obj){return obj.get('appropriations')});
             var max_exp = _.max(this.models, function(obj){return obj.get('expenditures')});
             var maxes = [max_app.get('appropriations'), max_exp.get('expenditures')];
+            
+            console.log(maxes)
             this.maxNum = maxes.sort(function(a,b){return b-a})[0];
             $.each(this.models, function(i, row){
                 var exps = row.get('expenditures');
@@ -100,6 +102,7 @@
         endYear: 2015,
         activeYear: 2014,
         updateYear: function(year, yearIndex){
+            console.log('updateYear')
             var expanded = [];
             $.each($('tr.expanded-content'), function(i, row){
                 var name = $(row).prev().find('a.rowName').text();
@@ -314,6 +317,11 @@
             var expChange = calc_change(self.reduceTotals(exp), self.reduceTotals(prevExp));
             var appropChange = calc_change(self.reduceTotals(approp), self.reduceTotals(prevApprop));
             var self = this;
+
+            console.log(guts)
+            console.log(query)
+            console.log(exp)
+
             $.each(guts, function(i, item){
                 summary['rowName'] = item.get(view);
                 summary['prevYear'] = year - 1;
@@ -328,6 +336,7 @@
                 summary['link'] = item.get('Link to Website');
                 var hierarchy = self.hierarchy[self.topLevelView]
                 var ranking = hierarchy.indexOf(view)
+
                 if (ranking == 0){
                     summary['child'] = hierarchy[1];
                     summary['parent_type'] = null;
@@ -438,15 +447,13 @@
             var exp = [];
             var approp = [];
             $.each(exps, function(i, e){
-                if (isNaN(e)){
-                    e = null;
-                }
+                if (isNaN(e)){ e = null; }
+                else { e = parseFloat(e) }
                 exp.push(e);
             })
             $.each(approps, function(i, e){
-                if (isNaN(e)){
-                    e = null;
-                }
+                if (isNaN(e)){ e = null; }
+                else { e = parseFloat(e) }
                 approp.push(e);
             });
             var minValuesArray = $.grep(approp.concat(exp),
@@ -473,6 +480,9 @@
                 name: globalOpts.expendTitle
             }];
             this.chartOpts.yAxis.min = Math.min.apply( Math, minValuesArray )
+
+            // console.log(this.chartOpts);
+
             var selectedYearIndex = year - collection.startYear;
             this.highChart = new Highcharts.Chart(this.chartOpts, function(){
                 this.series[0].data[selectedYearIndex].select(true, true);
@@ -672,20 +682,18 @@
             var exp = [];
             var approp = [];
             $.each(data.allExpenditures, function(i, e){
-                if (isNaN(e)){
-                    e = null;
-                }
+                if (isNaN(e)){ e = null; }
+                else { e = parseFloat(e) }
                 exp.push(e);
             })
             $.each(data.allAppropriations, function(i, e){
-                if (isNaN(e)){
-                    e = null;
-                }
+                if (isNaN(e)){ e = null; }
+                else { e = parseFloat(e) }
                 approp.push(e);
             });
             var minValuesArray = $.grep(approp.concat(exp),
               function(val) { return val != null; });
-            console.log(minValuesArray);
+            // console.log(minValuesArray);
             var globalOpts = app.GlobalChartOpts;
             this.chartOpts.chart.renderTo = data.get('slug') + "-selected-chart";
             this.chartOpts.plotOptions.area.pointInterval = globalOpts.pointInterval
@@ -710,6 +718,8 @@
                 name: globalOpts.expendTitle
               }]
             // select current year
+            // console.log(this.chartOpts);
+
             var selectedYearIndex = this.model.get('year') - collection.startYear;
             this.highChart = new Highcharts.Chart(this.chartOpts, function(){
                 this.series[0].data[selectedYearIndex].select(true, true);
@@ -777,7 +787,7 @@
             var input = $(e.currentTarget).parent().prev();
             var term = $(input).val();
             var results = this.Search.search(term);
-            console.log(results);
+            // console.log(results);
         }
     });
 
