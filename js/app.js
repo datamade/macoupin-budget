@@ -76,16 +76,19 @@
             var self = this;
             $.each(this.models, function(i, row){
                 var query = {}
-                query[row.get('type')] = row.get('rowName')
+                query[row.get('type')] = row.get('rowName');
+                if(typeof row.get('parent_type') !== 'undefined'){
+                    query[row.get('parent_type')] = row.get('parent');
+                }
                 var summ = collection.getSummary(row.get('type'), query, year)
                 row.set(summ);
                 row.yearIndex = index;
             });
-            var max_app = _.max(this.models, function(obj){return obj.get('appropriations')});
-            var max_exp = _.max(this.models, function(obj){return obj.get('expenditures')});
+
+            var max_app = _.max(this.models, function(obj){return parseFloat(obj.get('appropriations'))});
+            var max_exp = _.max(this.models, function(obj){return parseFloat(obj.get('expenditures'))});
             var maxes = [max_app.get('appropriations'), max_exp.get('expenditures')];
-            
-            console.log(maxes)
+
             this.maxNum = maxes.sort(function(a,b){return b-a})[0];
             $.each(this.models, function(i, row){
                 var exps = row.get('expenditures');
@@ -102,7 +105,6 @@
         endYear: 2015,
         activeYear: 2014,
         updateYear: function(year, yearIndex){
-            console.log('updateYear')
             var expanded = [];
             $.each($('tr.expanded-content'), function(i, row){
                 var name = $(row).prev().find('a.rowName').text();
@@ -318,10 +320,6 @@
             var appropChange = calc_change(self.reduceTotals(approp), self.reduceTotals(prevApprop));
             var self = this;
 
-            console.log(guts)
-            console.log(query)
-            console.log(exp)
-
             $.each(guts, function(i, item){
                 summary['rowName'] = item.get(view);
                 summary['prevYear'] = year - 1;
@@ -481,7 +479,6 @@
             }];
             this.chartOpts.yAxis.min = Math.min.apply( Math, minValuesArray )
 
-            // console.log(this.chartOpts);
 
             var selectedYearIndex = year - collection.startYear;
             this.highChart = new Highcharts.Chart(this.chartOpts, function(){
@@ -693,7 +690,6 @@
             });
             var minValuesArray = $.grep(approp.concat(exp),
               function(val) { return val != null; });
-            // console.log(minValuesArray);
             var globalOpts = app.GlobalChartOpts;
             this.chartOpts.chart.renderTo = data.get('slug') + "-selected-chart";
             this.chartOpts.plotOptions.area.pointInterval = globalOpts.pointInterval
@@ -718,7 +714,6 @@
                 name: globalOpts.expendTitle
               }]
             // select current year
-            // console.log(this.chartOpts);
 
             var selectedYearIndex = this.model.get('year') - collection.startYear;
             this.highChart = new Highcharts.Chart(this.chartOpts, function(){
@@ -787,7 +782,6 @@
             var input = $(e.currentTarget).parent().prev();
             var term = $(input).val();
             var results = this.Search.search(term);
-            // console.log(results);
         }
     });
 
