@@ -9,7 +9,7 @@
 
         if ( ! template_cache.tmpl_cache[tmpl_name] ) {
             var tmpl_dir = '/js/views';
-            var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html?4';
+            var tmpl_url = tmpl_dir + '/' + tmpl_name + '.html';
 
             var tmpl_string;
             $.ajax({
@@ -102,8 +102,8 @@
 
     app.BudgetColl = Backbone.Collection.extend({
         startYear: 1995,
-        endYear: 2015,
-        activeYear: 2014,
+        endYear: 2016,
+        activeYear: 2016,
         updateYear: function(year, yearIndex){
             var expanded = [];
             $.each($('tr.expanded-content'), function(i, row){
@@ -226,7 +226,7 @@
         bootstrap: function(init, year){
             var self = this;
             this.spin('#main-chart', 'large');
-            $.when($.get('/data/macoupin-budget_1997-2014.csv')).then(
+            $.when($.get('/data/macoupin-budget_1995-2016-cleaned.csv')).then(
                 function(data){
                     var json = $.csv.toObjects(data);
                     var loadit = []
@@ -245,7 +245,7 @@
                     if (typeof init === 'undefined'){
                         self.topLevelView = 'Fund';
                         if (!year){
-                            year = 2014;
+                            year = 2016;
                         }
                         self.updateTables('Fund', 'Macoupin County Budget', undefined, year);
                     } else {
