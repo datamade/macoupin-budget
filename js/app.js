@@ -102,8 +102,8 @@
 
     app.BudgetColl = Backbone.Collection.extend({
         startYear: 1995,
-        endYear: 2016,
-        activeYear: 2016,
+        endYear: 2019,
+        activeYear: 2019,
         updateYear: function(year, yearIndex){
             var expanded = [];
             $.each($('tr.expanded-content'), function(i, row){
@@ -226,7 +226,7 @@
         bootstrap: function(init, year){
             var self = this;
             this.spin('#main-chart', 'large');
-            $.when($.get('/data/macoupin-budget_1995-2016-cleaned.csv')).then(
+            $.when($.get('/data/macoupin-budget_1995-2019-cleaned.csv')).then(
                 function(data){
                     var json = $.csv.toObjects(data);
                     var loadit = []
@@ -245,7 +245,7 @@
                     if (typeof init === 'undefined'){
                         self.topLevelView = 'Fund';
                         if (!year){
-                            year = 2016;
+                            year = 2019;
                         }
                         self.updateTables('Fund', 'Macoupin County Budget', undefined, year);
                     } else {
