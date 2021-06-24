@@ -1,6 +1,6 @@
 # Look at Macoupin
 
-A budget transparency visualization for Macoupin County, IL displaying all county Agencies broken down by fund and control officer from 1992 to 2019.
+A budget transparency visualization for Macoupin County, IL displaying all county Agencies broken down by fund and control officer from 1992 to 2021.
 
 Based on [Look at Cook](http://lookatcook.com) by Derek Eder and Nick Rougeux at [Open City](http://opencityapps.org).
 
@@ -29,7 +29,7 @@ You can also email info@datamade.us or tweet @DataMadeCo.
 
 ### Look at Macoupin 
 
-Copyright (c) 2019 DataMade and Macoupin County. Released under the MIT License.
+Copyright (c) 2021 DataMade and Macoupin County. Released under the MIT License.
 
 See LICENSE for details https://github.com/datamade/look-at-macoupin/blob/master/LICENSE
 
