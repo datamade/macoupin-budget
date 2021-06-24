@@ -1,4 +1,4 @@
-Copyright © 2013 DataMade (datamade.us) and Macoupin County
+Copyright © 2021 DataMade (datamade.us) and Macoupin County
 
 Based on Look at Cook - Copyright © 2011 Derek Eder (http://derekeder.com) and Nick Rougeux (http://c82.net)
 
