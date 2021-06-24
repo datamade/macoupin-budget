@@ -102,8 +102,8 @@
 
     app.BudgetColl = Backbone.Collection.extend({
         startYear: 1995,
-        endYear: 2019,
-        activeYear: 2019,
+        endYear: 2020,
+        activeYear: 2020,
         updateYear: function(year, yearIndex){
             var expanded = [];
             $.each($('tr.expanded-content'), function(i, row){
@@ -226,7 +226,7 @@
         bootstrap: function(init, year){
             var self = this;
             this.spin('#main-chart', 'large');
-            $.when($.get('/data/macoupin-budget_1995-2019-cleaned.csv')).then(
+            $.when($.get('/data/macoupin-budget-cleaned.csv')).then(
                 function(data){
                     var json = $.csv.toObjects(data);
                     var loadit = []
@@ -245,7 +245,7 @@
                     if (typeof init === 'undefined'){
                         self.topLevelView = 'Fund';
                         if (!year){
-                            year = 2019;
+                            year = 2020;
                         }
                         self.updateTables('Fund', 'Macoupin County Budget', undefined, year);
                     } else {
@@ -267,7 +267,6 @@
                         }
                         self.updateTables(lowerView, title, filter, year);
                     }
-                    // self.searchView = new app.SearchView();
                 }
             );
         },
@@ -758,30 +757,6 @@
                 var width = $(bar).text();
                 $(bar).css('width', width);
             });
-        }
-    });
-
-    app.SearchView = Backbone.View.extend({
-        el: $('#search-form'),
-        initialize: function(){
-            var search_options = {
-                keys: ['Expense Line'],
-                threshold: 0.4
-            }
-            this.Search = new Fuse(collection.toJSON(), search_options);
-            this.render();
-        },
-        events: {
-            'click #search': 'engage'
-        },
-        render: function(){
-            this.$el.html(template_cache('search'));
-        },
-        engage: function(e){
-            e.preventDefault();
-            var input = $(e.currentTarget).parent().prev();
-            var term = $(input).val();
-            var results = this.Search.search(term);
         }
     });
 
