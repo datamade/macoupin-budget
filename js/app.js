@@ -102,8 +102,8 @@
 
     app.BudgetColl = Backbone.Collection.extend({
         startYear: 1995,
-        endYear: 2020,
-        activeYear: 2020,
+        endYear: 2023,
+        activeYear: 2023,
         updateYear: function(year, yearIndex){
             var expanded = [];
             $.each($('tr.expanded-content'), function(i, row){
@@ -245,7 +245,7 @@
                     if (typeof init === 'undefined'){
                         self.topLevelView = 'Fund';
                         if (!year){
-                            year = 2020;
+                            year = 2023;
                         }
                         self.updateTables('Fund', 'Macoupin County Budget', undefined, year);
                     } else {
