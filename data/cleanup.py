@@ -1,7 +1,7 @@
 import csv
 
 def cleanup():
-    f = open('macoupin-budget_1995-2023.csv', 'rb')
+    f = open('macoupin-budget_1995-2024.csv', 'rb')
     reader = csv.DictReader(f)
     all_rows = []
     for row in reader:
