@@ -1,7 +1,7 @@
 import csv
 
 def cleanup():
-    f = open('macoupin-budget_1995-2024.csv', 'rb')
+    f = open('macoupin-budget_1995-2025.csv', 'r')
     reader = csv.DictReader(f)
     all_rows = []
     for row in reader:
@@ -14,7 +14,7 @@ def cleanup():
                     v = 0
             row[k] = v
         all_rows.append(row)
-    outp = open('macoupin-budget-cleaned.csv', 'wb')
+    outp = open('macoupin-budget-cleaned.csv', 'w')
     writer = csv.DictWriter(outp, row.keys())
     writer.writeheader()
     writer.writerows(all_rows)
